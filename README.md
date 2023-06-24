@@ -1,3 +1,9 @@
-This is my frist ever project in React!
+Weather App
+This project is a simple weather application that allows users to search for the current weather conditions of a specific location. The application retrieves weather data from the OpenWeatherMap API and displays it on the webpage.
 
-i have used an OpenWeatherAPI to display results with the searched city
+Installation
+  Clone the project repository to your local machine.
+  Navigate to the project directory.
+  Install any necessary dependencies by running the following command:
+    - npm install
+    - npm start
