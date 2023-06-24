@@ -7,7 +7,7 @@ Installation
 Clone the project repository to your local machine.
 Navigate to the project directory.
 Install any necessary dependencies by running the following command:
-    npm install
+    npm install.
 Run the application by executing the following command:
-    npm start
+    npm start.
 
