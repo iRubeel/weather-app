@@ -1,100 +1,330 @@
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'montserrat', sans-serif;
-  background-image: url(sunny.jpg);
-  background-size: cover;
-  background-position: top center;
-
+:root {
+  --light-background: #f0f0f0;
+  --dark-background: #333;
+  --light-text: #333;
+  --dark-text: #f0f0f0;
+  --card-background-color: #fff; /* Default for light theme */
+  --text-color: #333; /* Default for light theme */
 }
+body.dark {
+  --card-background-color: #424242; /* Dark theme card background */
+  --text-color: #f0f0f0; /* Dark theme text color */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+
+/* Global styles */
+body.light, body.dark {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+body.dark {
+  background-color: #333;
+  color: #f0f0f0;
+}
+
+/* Ensure other elements inherit or smoothly transition between themes */
+
+.app-title {
+  color: #ffcc00;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 28px; /* Larger for emphasis */
+  font-weight: 700; /* Bolder for impact */
+}
+
 
 .App-wrap {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  height: 100vh;
+  transition: background-color 0.3s ease;
 }
 
-header{
+.App-wrap.light {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.App-wrap.dark {
+  background-color: #333; /* Dark theme background color */
+  color: #f0f0f0; /* Dark theme text color */
+}
+
+
+.theme-toggle-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ffcc00;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 50px 15px 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-header input{
+.search-box {
+  position: relative;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center; /* Center the search box */
   width: 100%;
-  max-width: 280px;
-  padding: 10px 15px;
-  border: none;
+  max-width: 450px; /* Increased width for better alignment */
+}
+
+.search-bar {
+  width: 100%;
+  padding: 15px 45px; /* Increase padding to accommodate icons inside the search bar */
+  border: 2px solid #ffcc00;
+  border-radius: 50px;
+  font-size: 16px;
   outline: none;
-  background-color: rgba(255,255, 255, 0.3);
-  border-radius: 16px 0px 16px 0px;
-  border-bottom: 3px solid #DF8E00;
-
-  color: #313131;
-  font-size: 20px;
-  font-weight: 300;
-  transition: 0.2s ease-out;
 }
 
-head input :focus{
-  background-color: rgba(255,255, 255, 1); 
+.location-icon {
+  position: absolute;
+  left: 15px; /* Adjusted for left side */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 
-main{
-  flex: 1 1 100%;
-  padding: 25px 25px 50px;
+
+
+
+
+/* .weather-card {
+  width: 100%;
+  max-width: 450px;
+  background-color: var(--card-background-color);
+  color: var(--text-color);
+  border: none;
+  padding: 25px;
+  margin: 20px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+} */
+
+.weather-card {
+  background-color: var(--card-background-color, #fff);
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 20px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between sections */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 450px;
+}
+
+.weather-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee; /* Subtle line for section separation */
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.weather-section:last-child {
+  border-bottom: none; /* No border for the last section */
+}
+
+.weather-section .section-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-section .section-item:not(:last-child) {
+  margin-right: 20px; /* Space between items if more than one per section */
+}
+
+
+.weather-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+.dark-theme .weather-card {
+  background: rgba(50, 50, 50, 0.8);
+  color: #FFF;
+}
+
+.weather-card .location, .weather-card .date, .weather-card .temp, .weather-card .weather, .weather-card .hi-low, .weather-card .additional-info p {
+  /* margin: 5px 0; */
   text-align: center;
-
 }
 
-.location .city {
-  color: black;
-  font-size: 32px;
-  font-weight: 500;
-  margin-bottom: 5px;
+.weather-card .location { font-size: 1.8rem; font-weight: 600; }
+.weather-card .date { font-size: 1.2rem; color: var(--text-secondary-color, #666); }
+.weather-card .temp { font-size: 3.5rem; font-weight: 700; }
+.weather-card .weather { font-size: 1.5rem; font-weight: 500; }
+.weather-card .hi-low { font-size: 1.3rem; color: var(--text-secondary-color, #666); }
+.weather-card .additional-info p { font-size: 1.1rem; color: var(--text-secondary-color, #666); }
 
-}
-.location .date{
-  color: black;
-  font-size: 16px;
-  
-}
 
-.current .temp{
-  color: black;
-  font-size: 75px;
-  font-weight: 400;
-  margin: 100px, 0px;
-  text-shadow: 2px 4px rgba(0, 0, 0, 0.6 );
-
+.horizontal-bar {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+  margin: 10px 0;
 }
 
-.current .temp span{
-  font-weight: 500;
+/* Flexbox container for sunrise and sunset */
+.sun-times-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.current .weather{
-  color: black;
-  font-size: 32px;
-  font-weight: 600;
-  font-style: italic;
-  margin-bottom: 15px;
-  text-shadow: 0px 4px rgba(0, 0, 0, 0.3 );
+/* Style for the text */
+.sun-time {
+  font-size: 1rem;
+  color: var(--text-color, #333); /* Adjust based on your theme */
 }
-.current .hi-low{
-  color: black;
-  font-size: 24px;
-  font-weight: 500;
-  text-shadow: 0px 4px rgba(0, 0, 0, 0.2 );
 
+.icon-with-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px; /* Adjust gap as needed */
 }
+
+.text-below-icon {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+.dark-theme .date, .dark-theme .weather-box .hi-low {
+  color: #DDD;
+}
+
+
+.search-icon {
+  position: absolute;
+  right: 15px; /* Adjusted for right side */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.search-icon:hover, .location-icon:hover {
+  color: #ffcc00; /* Adjust hover color */
+}
+
+.search-icon:active, .location-icon:active {
+  transform: translateY(-45%);
+}
+
+.weather-icon {
+  width: 50px; /* Adjust size as needed */
+  height: 50px; /* Adjust size as needed */
+}
+
+
+/* Container for hourly forecast cards */
+.hourly-forecast-background {
+  display: flex;
+  flex-direction: row; /* Align items horizontally */
+  overflow-x: auto; /* Enable horizontal scrolling for the cards */
+  overflow-y: hidden; /* Prevent vertical scrolling */
+  white-space: nowrap; /* Ensure items do not wrap */
+  width: 100%; /* Container width to fill its parent */
+  max-width: 960px; /* Maximum width can be adjusted based on layout */
+  margin: 20px auto; /* Center the container horizontally */
+  padding: 20px 0; /* Padding top and bottom for visual spacing */
+  gap: 10px; /* Space between individual cards */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #888 #f0f0f0; /* Scrollbar color for Firefox */
+}
+
+/* Styles for Webkit browsers like Chrome, Safari */
+.hourly-forecast-background::-webkit-scrollbar {
+  height: 8px; /* Height of the scrollbar */
+}
+
+.hourly-forecast-background::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the scrollbar thumb */
+}
+
+/* Individual hourly weather forecast cards */
+.hourly-forecast-card {
+  display: inline-flex; /* Inline-flex to keep cards in line */
+  flex-direction: column; /* Stack card content vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  min-width: 170px; /* Minimum width for each card */
+  background-color: #ffffff; /* Background color for light theme */
+  padding: 10px; /* Padding inside each card */
+  border-radius: 10px; /* Rounded corners for the cards */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  margin-right: 10px; /* Space between cards */
+  font-family: 'Montserrat', sans-serif; /* Consistent font family */
+  color: #333; /* Text color for light theme */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover effect for cards */
+.hourly-forecast-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
+}
+
+/* Dark theme adjustments */
+.dark-theme .hourly-forecast-card {
+  background: #424242; /* Dark theme background for cards */
+  color: #ffffff; /* Dark theme text color */
+}
+
